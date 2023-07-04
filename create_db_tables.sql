@@ -29,3 +29,28 @@ FROM cats;
 
 SELECT *
 FROM dogs;
+
+-- How do we know it worked?
+SHOW TABLES;
+
+SHOW COLUMNS 
+FROM cats;
+
+DESC cats;
+
+-- Dropping Tables
+DROP TABLE cats;
+
+-- Exercise: Create a pastries table
+	-- it should include 2 columns: name and quantity. Name is 50 characters max.
+    -- inspect your table/ column
+    -- delete your table
+CREATE TABLE pastries(
+	name VARCHAR(50),
+    quantity int);
+    
+SHOW TABLES;
+
+DESC pastries;
+
+DROP TABLES pastries;
