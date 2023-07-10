@@ -69,3 +69,26 @@ CREATE TABLE unique_cats (
     name VARCHAR(100),
     age INT
 );
+
+-- Working with Auto Increment
+/* Primary Keys CANNOT BE NULL */
+CREATE TABLE unique_cats2 (
+	cati_id INT AUTO_INCREMENT,
+    name VARCHAR(100),
+    age INT,
+    PRIMARY KEY (cat_id)
+);
+
+-- CREATE TABLE/ INSERT Exercise
+CREATE TABLE employees(
+	id INT AUTO_INCREMENT PRIMARY KEY,
+    last_name VARCHAR(50) NOT NULL,
+    first_name VARCHAR(50) NOT NULL,
+    middle_name VARCHAR(50),
+    age INT NOT NULL,
+    current_status VARCHAR(50) NOT NULL DEFAULT 'employed'
+);
+
+INSERT INTO employees(first_name, last_name, age) VALUES
+('Dora', 'Smith', 58);
+
