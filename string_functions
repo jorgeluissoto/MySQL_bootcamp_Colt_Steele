@@ -37,3 +37,68 @@ SELECT
     *
 FROM
     books;
+
+-- CONCAT
+SELECT 
+    CONCAT(author_fname,' ', author_lname) AS author_name
+FROM
+    books;
+    
+-- CONCAT_WS
+SELECT 
+    CONCAT_WS('-', title, author_fname, author_lname)
+FROM
+    books;
+
+-- Substring
+-- SELECT SUBSTRING('Hello World',start_positon,lenght_of_substring)
+SELECT SUBSTRING('Hello World', 1, 4);
+
+-- start at this point and run till the end
+SELECT SUBSTRING('Hello World', 7);
+
+-- negative number starts from the end of the string
+SELECT SUBSTRING('Hello World', - 3, 1);
+
+-- return the first 15 characters of the title
+SELECT 
+    SUBSTRING(title, 1, 15)
+FROM
+    books;
+
+-- first chracter of author last name
+SELECT 
+    SUBSTRING(author_lname, 1, 1), author_lname
+FROM
+    books;
+
+-- Combining string functions
+SELECT 
+    CONCAT(SUBSTRING(title, 1, 10), '...') AS Short_Title
+FROM
+    books;
+
+-- REPLACE
+-- REPLACE(str, from_str, to_str);
+SELECT REPLACE('Hello World', 'Hell', '%$#@');
+ 
+SELECT REPLACE('Hello World', 'l', '7');
+ 
+SELECT REPLACE('Hello World', 'o', '0');
+ 
+SELECT REPLACE('HellO World', 'o', '*');
+ 
+SELECT 
+    REPLACE('cheese bread coffee milk',
+        ' ',
+        ' and ');
+ 
+SELECT 
+    REPLACE(title, 'e ', '3')
+FROM
+    books;
+ 
+SELECT 
+    REPLACE(title, ' ', '-')
+FROM
+    books;
