@@ -102,3 +102,65 @@ SELECT
     REPLACE(title, ' ', '-')
 FROM
     books;
+
+-- Reverse
+SELECT REVERSE('Hello World');
+
+SELECT CONCAT(author_fname, REVERSE(author_fname)) FROM books;
+
+-- Char Length
+SELECT CHAR_LENGTH('Hello World');
+ 
+SELECT CHAR_LENGTH(title) as length, title FROM books;
+ 
+SELECT author_lname, CHAR_LENGTH(author_lname) AS 'length' FROM books;
+ 
+SELECT CONCAT(author_lname, ' is ', CHAR_LENGTH(author_lname), ' characters long') FROM books;
+
+-- UPPER & LOWER
+SELECT UPPER('Hello World');
+ 
+SELECT LOWER('Hello World');
+ 
+SELECT UPPER(title) FROM books;
+
+SELECT CONCAT('I LOVE ',UPPER(title),' !!!')
+FROM books;
+
+-- Other String Functions
+SELECT REPEAT('ha', 4);
+ 
+SELECT TRIM('  pickle  ');
+
+SELECT INSERT('Hello Bobby', 6, 0, 'There'); 
+
+SELECT LEFT('omghahalol!', 3);
+
+SELECT RIGHT('omghahalol!', 4);
+
+-- String Functions Exercise
+
+/* Reverse and Uppercase the following sentence */
+SELECT REVERSE(UPPER('Why does cat look at me with such hurted'));
+
+/* replace space with -> */
+SELECT REPLACE(title, ' ' ,'->') AS Title
+FROM books;
+
+SELECT author_lname, REVERSE(author_lname)
+FROM books;
+
+SELECT CONCAT(UPPER(author_fname), '  ', UPPER(author_lname))
+FROM books;
+
+SELECT CONCAT(title, ' was released in ', released_year)
+FROM books;
+
+SELECT title, CHAR_LENGTH(title) AS character_count
+FROM books;
+
+SELECT 
+	CONCAT(LEFT(title,10), '...') AS short_title,
+    CONCAT(author_lname, ',', author_fname) AS author,
+    CONCAT(stock_quantity, ' in stock') AS quantity
+FROM books;
