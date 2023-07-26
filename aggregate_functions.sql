@@ -143,3 +143,39 @@ FROM
 GROUP BY released_year;
 
 -- Exercise
+-- Print the number of books in the database
+SELECT 
+    COUNT(*)
+FROM
+    books;
+    
+-- Print out how many books were released in each year
+SELECT 
+    released_year, COUNT(*)
+FROM
+    books
+GROUP BY released_year;
+
+-- Print out the total number of books in stock
+SELECT 
+    SUM(stock_quantity) AS books_in_stock
+FROM
+    books;
+
+-- Find the avg release year for each author
+SELECT 
+    author_fname, author_lname, AVG(released_year)
+FROM
+    books
+GROUP BY 1 , 2;
+
+-- Find the full name of the author that wrote the longest book
+SELECT 
+    author_fname, author_lname, pages
+FROM
+    books
+WHERE
+    pages = (SELECT 
+            MAX(pages)
+        FROM
+            books);
