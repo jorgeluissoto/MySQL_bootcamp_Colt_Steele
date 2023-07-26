@@ -179,3 +179,12 @@ WHERE
             MAX(pages)
         FROM
             books);
+
+SELECT 
+    released_year AS year,
+    COUNT(*) AS number_of_books,
+    AVG(pages) AS avg_pages
+FROM
+    books
+GROUP BY released_year
+ORDER BY released_year;
