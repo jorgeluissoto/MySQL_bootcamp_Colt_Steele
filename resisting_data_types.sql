@@ -178,3 +178,19 @@ SELECT DAYNAME(NOW());
 
 -- Print out the current day and time in this format mm/dd/yyyy
 SELECT DATE_FORMAT(CURDATE(), '%c/%d/%Y');
+
+-- Create a tweets table
+/* the Tweet content, A username, and time it was creates */
+CREATE TABLE tweets (
+    text VARCHAR(140),
+    user_name VARCHAR(50),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+    
+INSERT INTO tweets (text,user_name) VALUES
+	('Hello Elon', 'jls');
+
+SELECT 
+    *
+FROM
+    tweets;
