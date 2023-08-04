@@ -205,3 +205,76 @@ SELECT
     END AS stock
 FROM
     books;
+
+-- EXERCISE
+/* Select all the book written before 1980 non inclusive */
+SELECT 
+    *
+FROM
+    books
+WHERE
+    released_year < 1980
+        AND released_year != 1980;
+
+/* select all books written by eggers or chabon */
+SELECT 
+    *
+FROM
+    books
+WHERE
+    author_lname IN ('Eggers' , 'Chabon');
+
+/* Select all books written by leahiri published after 2000 */
+SELECT 
+    *
+FROM
+    books
+WHERE
+    author_lname = 'Lahiri'
+        AND released_year > 2000;
+
+/* Select all books with a page count between 100 and 200 */
+SELECT 
+    *
+FROM
+    books
+WHERE
+    pages BETWEEN 100 AND 200;
+
+/* Select all books where the author_lname starts with a 'C' or 'S' */
+SELECT 
+    *
+FROM
+    books
+WHERE
+    author_lname LIKE 'C%'
+        OR author_lname LIKE 'S%';
+        
+-- Case Statement
+SELECT 
+    title,
+    author_lname,
+    CASE
+        WHEN title LIKE '%stories%' THEN 'Short Stories'
+        WHEN
+            title = 'Just Kids'
+                OR title = 'A Heartbreaking Work of Staggering Genius'
+        THEN
+            'Memoir'
+        ELSE 'Novel'
+    END AS Type
+FROM
+    books;
+
+
+SELECT author_fname, author_lname,
+    CASE
+        WHEN Number_of_Books = 1 THEN '1 Book'
+        WHEN Number_of_Books = 2 THEN '2 Books'
+        ELSE '3 Books'
+    END AS Count
+FROM (
+    SELECT author_fname, author_lname, COUNT(*) AS Number_of_Books
+    FROM books
+    GROUP BY author_fname, author_lname
+) AS subquery_alias;
