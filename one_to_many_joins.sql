@@ -151,13 +151,17 @@ CREATE TABLE orders (
 
 -- Exercise
 CREATE TABLE students (
+	id INT PRIMARY KEY AUTO_INCREMENT,
     first_name VARCHAR(50)
 );
     
 CREATE TABLE papers (
     student_id INT,
     title VARCHAR(75),
-    grade INT
+    grade INT,
+    FOREIGN KEY (student_id)
+        REFERENCES students (id)
+        ON DELETE CASCADE
 );
 
 INSERT INTO students (first_name) VALUES 
@@ -179,3 +183,52 @@ SELECT
     *
 FROM
     papers;
+
+-- print first name, title and grade
+SELECT 
+    first_name, title, grade
+FROM
+    students
+        JOIN
+    papers ON student_id = id
+ORDER BY grade DESC;
+
+-- Return all student first name
+SELECT 
+    first_name, title, grade
+FROM
+    students
+        LEFT JOIN
+    papers ON student_id = id;
+
+-- make the above table easier to read with no NULL
+SELECT 
+    first_name, IFNULL(title, 'MISSING'), IFNULL(grade,0)
+FROM
+    students
+        LEFT JOIN
+    papers ON student_id = id;
+
+-- Find the average grade
+SELECT first_name, IFNULL(AVG(grade),0) AS average
+FROM
+    students
+        LEFT JOIN
+    papers ON student_id = id
+GROUP BY 1
+ORDER BY 2 DESC;
+
+-- add a column to check if student is passing class above 75%
+SELECT 
+    first_name,
+    IFNULL(AVG(grade), 0) AS average,
+    CASE
+        WHEN IFNULL(AVG(grade), 0) >= 75 THEN 'PASSING'
+        ELSE 'FAILING'
+    END passing_status
+FROM
+    students
+        LEFT JOIN
+    papers ON student_id = id
+GROUP BY 1
+ORDER BY 2 DESC;
