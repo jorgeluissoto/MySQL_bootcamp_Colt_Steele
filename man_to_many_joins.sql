@@ -65,12 +65,76 @@ INSERT INTO reviews(series_id, reviewer_id, rating) VALUES
     (14,2,8.5),(14,3,8.9),(14,4,8.9);
     
 -- TV series challenge #1
-
+SELECT 
+    s.title, r.rating
+FROM
+    series s
+        JOIN
+    reviews r ON r.series_id = s.id;
 
 -- TV series challenge #2
+SELECT 
+    s.title, ROUND(AVG(rating),1) AS avg_rating
+FROM
+    series s
+        JOIN
+    reviews r ON r.series_id = s.id
+GROUP BY 1
+ORDER BY 2;
 
 -- TV series challenge #3
+SELECT 
+    first_name, last_name, rating
+FROM
+    reviewers
+        JOIN
+    reviews ON reviews.reviewer_id = reviewers.id;
+
 -- TV series challenge #4
+SELECT 
+    title AS unreviewed_series
+FROM
+    series s
+        LEFT JOIN
+    reviews r ON r.series_id = s.id
+WHERE
+    rating IS NULL;
+
 -- TV series challenge #5
+SELECT 
+    genre, ROUND(AVG(rating), 1) AS avg_rating
+FROM
+    series s
+        JOIN
+    reviews r ON r.series_id = s.id
+GROUP BY 1;
+
 -- TV series challenge #6
+SELECT 
+    first_name,
+    last_name,
+    COUNT(rating) AS count,
+    IFNULL(MIN(rating), 0) AS MIN,
+    IFNULL(MAX(rating), 0) AS MAX,
+    IFNULL(ROUND(AVG(rating), 1), 0.0) AS avg_rating,
+    CASE
+		WHEN COUNT(rating) >= 10 THEN 'POWERUSER'
+        WHEN COUNT(rating) > 0 THEN 'ACTIVE'
+        ELSE 'INACTIVE'
+    END AS status
+FROM
+    reviewers
+        LEFT JOIN
+    reviews ON reviews.reviewer_id = reviewers.id
+GROUP BY 1 , 2;
+
 -- TV series challenge #7
+SELECT 
+    title, rating, CONCAT(first_name, ' ', last_name) AS reviewer
+FROM
+    reviews
+        JOIN
+    series ON reviews.series_id = series.id
+        JOIN
+    reviewers ON reviewers.id = reviews.reviewer_id
+    ORDER BY 1,2 DESC;
