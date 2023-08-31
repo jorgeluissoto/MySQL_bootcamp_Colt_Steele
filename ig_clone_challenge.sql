@@ -45,3 +45,46 @@ FROM
 GROUP BY photos.id
 ORDER BY total DESC
 LIMIT 1;
+
+/* Our investors want to know. How many times does the average
+user post? */
+SELECT 
+    (SELECT 
+            COUNT(*)
+        FROM
+            photos) / (SELECT 
+            COUNT(*)
+        FROM
+            users) AS avg; 
+
+/* A brand wants to know which hashtags to use in a post
+What are the top 5 most commonly used hastags? */
+SELECT *
+FROM tags;
+
+SELECT *
+FROM photo_tags;
+
+SELECT 
+    tag_name, COUNT(*) AS number_of_tags
+FROM
+    photo_tags
+        JOIN
+    tags ON tag_id = tags.id
+GROUP BY 1
+ORDER BY 2 DESC
+LIMIT 5;
+
+/* We have a small problem with bots on our site...
+Find users who have liked every single photo on the site */
+SELECT 
+    COUNT(*) AS num_likes, username
+FROM
+    likes
+        JOIN
+    users ON users.id = user_id
+GROUP BY 2
+HAVING num_likes = (SELECT 
+        COUNT(*)
+    FROM
+        photos);
